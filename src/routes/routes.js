@@ -20,6 +20,7 @@ const Routes = () => {
           screenOptions={{
             headerShown: false,
           }}>
+            
           <Stack.Screen name="mainRoutes" component={MainRoutes} />
         </Stack.Navigator>
       ) : (
