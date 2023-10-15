@@ -54,10 +54,13 @@ const Home = () => {
   };
 
   const sortByDueDateAscending = () => {
-    const sortedTasks = isSortedList
-      ? tasksList
-      : [...tasksList].sort((a, b) => new Date(a.date) - new Date(b.date));
-    setTasksList(sortedTasks);
+    if (!isSortedList) {
+      setTasksList(
+        [...tasksList].sort((a, b) => new Date(a.date) - new Date(b.date)),
+      );
+    } else {
+      setTasksList(tasksList);
+    }
     setIsSortedList(!isSortedList);
   };
 
@@ -66,7 +69,7 @@ const Home = () => {
   }, [tasks]);
 
   const RenderTask = ({task}) => {
-    const {id, date, title, isComplete} = task || {};
+    const {id, date, title, isComplete, desc} = task || {};
 
     return (
       <View style={styles.taskContainer}>
@@ -82,7 +85,7 @@ const Home = () => {
         <View style={styles.taskInfoContainer}>
           <Txt style={styles.dateText}>{dateToFormat(date)}</Txt>
           <Txt style={[styles.titleText, isComplete && styles.completedTitle]}>
-            {title}
+            {title ? title : desc}
           </Txt>
         </View>
         <CustomTouchableOpacity
